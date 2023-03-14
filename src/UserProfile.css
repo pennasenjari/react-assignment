@@ -1,0 +1,12 @@
+div {
+  display: flex;
+  padding: 4px;
+}
+
+.profile {
+  flex-direction: row;
+  font-family: sans-serif;
+}
+
+.profile img {
+}
