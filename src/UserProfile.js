@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import "./UserProfile.css";
 import ContentEditable from "react-contenteditable";
 import cloneDeep from 'lodash/cloneDeep';
+import ProfilePic from './ProfilePic'
 
 const UserProfile = () => {
 
@@ -14,14 +15,14 @@ const UserProfile = () => {
     .then(response => response.json())
     .then(data => {
       setUser(data.results[0]);
-      setOldUser(cloneDeep(data.results[0])); // break the connection between objects
+      setOldUser(cloneDeep(data.results[0])); // clone to prevent mixing values
     });
   },[]);
 
   const handleBlur = (e) => {
     let newUser = user;
-    //let newUser = {...user}; // does not work right
-    //let newUser = cloneDeep(oldUser); // does not work right
+    //let newUser = {...user}; // did not work - old and new values got mixed?
+    //let newUser = cloneDeep(oldUser); // did not work - old and new values got mixed?
     const val = e.target.innerHTML; // e.target.value returns undefined
     const aFld = e.target.id.split('.'); // can be 2-part id like user.name
     const fld1 = aFld[0];
@@ -52,7 +53,7 @@ const UserProfile = () => {
       <div style={{flexDirection: 'column', width: '100%'}}>
         <div style={{flexDirection: 'row'}}>
           <div style={{flex: 1, justifyContent: 'flex-end'}}>
-            <img src={user.picture.large} alt={user.name.first + ' ' +  user.name.last} />
+            <ProfilePic fileDataUrl={user.picture.large}  alt={user.name.first + ' ' +  user.name.last} disabled={isEditDisabled} />
           </div>
           <div style={{flex: 1, alignItems: 'center'}}>
             <h1><ContentEditable
