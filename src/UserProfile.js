@@ -9,22 +9,23 @@ const UserProfile = () => {
   const [user, setUser] = useState();
   const [oldUser, setOldUser] = useState();
   const [isEditDisabled, setIsEditDisabled] = useState(true);
- 
+  const [profilePic, setProfilePic] = useState(null);
+  const [resetPic, setResetPic] = useState(false);
+
   useEffect(() => {
     fetch("https://randomuser.me/api/?results=1")
     .then(response => response.json())
     .then(data => {
       setUser(data.results[0]);
-      setOldUser(cloneDeep(data.results[0])); // clone to prevent mixing values
+      setOldUser(cloneDeep(data.results[0])); // separating original and modified values
+      setProfilePic(data.results[0].picture.medium);
     });
   },[]);
 
   const handleBlur = (e) => {
-    let newUser = user;
-    //let newUser = {...user}; // did not work - old and new values got mixed?
-    //let newUser = cloneDeep(oldUser); // did not work - old and new values got mixed?
-    const val = e.target.innerHTML; // e.target.value returns undefined
-    const aFld = e.target.id.split('.'); // can be 2-part id like user.name
+    let newUser = user; //let newUser = {...user} and cloneDeep(oldUser) did not work for this - old and new values got mixed
+    const val = e.target.innerHTML; // e.target.value returns undefined, innerHTML works
+    const aFld = e.target.id.split('.'); // can be 2-part id like name.first
     const fld1 = aFld[0];
     if (aFld.length === 1) {
       newUser[fld1] = val;
@@ -36,15 +37,23 @@ const UserProfile = () => {
   };
 
   const saveEdit = () => {
-    setOldUser(oldUser => user); // update old user data
-    setIsEditDisabled(true);
     console.log('TODO: Submit user data to server: ', user)
+    setIsEditDisabled(true);
+    setOldUser(oldUser => user); // set the "restore point"
   };
 
   const cancelEdit = () => {
+    // restore original user data
     const tempUser = cloneDeep(oldUser);
-    setUser(tempUser); // restore old user data
+    setUser(tempUser);
+    setResetPic(!resetPic); // needed another var to trigger useEffect in ProfilePic, because profilePic is unhanged
     setIsEditDisabled(true);
+  };
+
+  const setCustomPic = (pic) => {
+    let tempUser = cloneDeep(user);
+    tempUser['picture']['custom'] = pic;
+    setUser(tempUser); 
   };
 
   return (
@@ -53,7 +62,7 @@ const UserProfile = () => {
       <div style={{flexDirection: 'column', width: '100%'}}>
         <div style={{flexDirection: 'row'}}>
           <div style={{flex: 1, justifyContent: 'flex-end'}}>
-            <ProfilePic fileDataUrl={user.picture.large}  alt={user.name.first + ' ' +  user.name.last} disabled={isEditDisabled} />
+            <ProfilePic username={user.name} pic={profilePic} resetPic={resetPic} setCustomPic={setCustomPic} disabled={isEditDisabled} />
           </div>
           <div style={{flex: 1, alignItems: 'center'}}>
             <h1><ContentEditable
