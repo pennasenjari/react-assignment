@@ -59,82 +59,84 @@ const UserProfile = () => {
   };
 
   return (
-    <div style={{width: '100%', height: '100%'}}>
+    <>
     {user ?
-      <div style={{flexDirection: 'column', width: '100%'}}>
-        <div style={{flexDirection: 'row'}}>
-          <div style={{flex: 1, justifyContent: 'flex-end'}}>
-            <ProfilePic username={user.name} pic={profilePic} resetPic={resetPic} setCustomPic={setCustomPic} disabled={isEditDisabled} />
+      <div className="col full-size">
+        <div className="row">
+          <div className="row col1">
+            <ProfilePic username={user.name} pic={profilePic} resetPic={resetPic}
+              setCustomPic={setCustomPic} disabled={isEditDisabled} />
           </div>
-          <div style={{flex: 1, alignItems: 'center'}}>
+          <div className="row col2">
             <h1><ContentEditable
                 html={user.name.first}
                 disabled={isEditDisabled}
                 id="name.first" 
                 onBlur={handleBlur}
-                style={isEditDisabled ? {backgroundColor: 'white'} : {backgroundColor: 'lightgray'}}
+                className={isEditDisabled ? 'input-disabled' : 'input-enabled'}
               />
               <ContentEditable
                 html={user.name.last}
                 disabled={isEditDisabled}
                 id="name.last" 
                 onBlur={handleBlur}
-                style={isEditDisabled ? {backgroundColor: 'white'} : {backgroundColor: 'lightgray'}}
+                className={isEditDisabled ? 'input-disabled' : 'input-enabled'}
               /></h1>
           </div>
         </div>
-        <div style={{flexDirection: 'row'}}>
-          <div style={{flex: 1, justifyContent: 'flex-end', fontWeight: 'bold'}}>
+        <div className="row">
+          <div className="col1 hdl">
             Phone
           </div>
-          <div style={{flex: 1}}>
+          <div className="col2">
             <ContentEditable
               html={user.phone.toString()}
               disabled={isEditDisabled}
               id="phone" 
               onBlur={handleBlur}
-              style={isEditDisabled ? {backgroundColor: 'white'} : {backgroundColor: 'lightgray'}}
-            />
+              className={isEditDisabled ? 'input-disabled' : 'input-enabled'}
+              />
           </div>
         </div>
-        <div style={{flexDirection: 'row'}}>
-          <div style={{flex: 1, justifyContent: 'flex-end', fontWeight: 'bold'}}>
+        <div className="row">
+          <div className="col1 hdl">
             Email
           </div>
-          <div style={{flex: 1}}>
+          <div className="col2">
             <ContentEditable
               html={user.email}
               disabled={isEditDisabled}
               id="email" 
               onBlur={handleBlur}
-              style={isEditDisabled ? {backgroundColor: 'white'} : {backgroundColor: 'lightgray'}}
-            />
+              className={isEditDisabled ? 'input-disabled' : 'input-enabled'}
+              />
           </div>
         </div>
-        <div style={{flexDirection: 'row'}}>
-          <div style={{flex: 1, justifyContent: 'flex-end', fontWeight: 'bold'}}>
+        <div className="row">
+          <div className="col1 hdl">
             Location
           </div>
-          <div style={{flex: 1}}>
+          <div className="col2">
             <ContentEditable
               html={user.location.city}
               disabled={isEditDisabled}
               id="location.city" 
               onBlur={handleBlur}
-              style={isEditDisabled ? {backgroundColor: 'white'} : {backgroundColor: 'lightgray'}}
-            />,
+              className={isEditDisabled ? 'input-disabled' : 'input-enabled'}
+              />
+            <div className="comma">,</div>
             <ContentEditable
               html={user.location.country}
               disabled={isEditDisabled}
               id="location.country" 
               onBlur={handleBlur}
-              style={isEditDisabled ? {backgroundColor: 'white'} : {backgroundColor: 'lightgray'}}
-            />              
+              className={isEditDisabled ? 'input-disabled' : 'input-enabled'}
+              />              
           </div>
         </div>
-        <div style={{flexDirection: 'row'}}>
-          <div style={{flex: 1}}></div>
-          <div style={{flex: 1}}>
+        <div className="row">
+          <div className="col1"></div>
+          <div className="col2">
             <button style={isEditDisabled ? {display: 'block'} : {display: 'none'}}
               onClick={() => {setIsEditDisabled(!isEditDisabled); setSaved(false);}}>Edit</button>
             <div style={saved ? {display: 'block', color: 'green'} : {display: 'none'}}>Saved!</div>
@@ -146,7 +148,7 @@ const UserProfile = () => {
         </div>
       </div>
     : <div>Loading...</div>}
-    </div>
+    </>
   );
 
 }

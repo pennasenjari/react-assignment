@@ -54,9 +54,10 @@ const ProfilePic = (props) => {
   const fileBtn = useRef(null); // helper to hide upload control
 
   return (
-    <div style={{flexDirection: 'column'}}>
-      {fileDataURL ? <img src={fileDataURL} alt={props.username.first + ' ' +  props.username.last}
-        style={{width: '128px', height: '128px'}} /> : null}
+    <div className="col">
+      {fileDataURL ? 
+        <img src={fileDataURL} alt={props.username.first + ' ' +  props.username.last} className="profile-pic" />
+        : null }
       <input
         type="file"
         id='image'
