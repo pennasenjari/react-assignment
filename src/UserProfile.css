@@ -4,6 +4,10 @@ div {
   margin: 0;
 }
 
+button {
+  margin-right: 4px;
+}
+
 .row {
   flex-direction: row;
 }
@@ -54,4 +58,16 @@ div {
   margin-top: 2px;
   margin-right: 2px;
   align-items: bottom
+}
+
+.show {
+  display: block;  
+}
+
+.hide {
+  display: none;  
+}
+
+.saved {
+  color: green;
 }

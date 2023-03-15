@@ -137,12 +137,12 @@ const UserProfile = () => {
         <div className="row">
           <div className="col1"></div>
           <div className="col2">
-            <button style={isEditDisabled ? {display: 'block'} : {display: 'none'}}
+            <button className={isEditDisabled ? 'show' : 'hide'}
               onClick={() => {setIsEditDisabled(!isEditDisabled); setSaved(false);}}>Edit</button>
-            <div style={saved ? {display: 'block', color: 'green'} : {display: 'none'}}>Saved!</div>
-            <button style={isEditDisabled ? {display: 'none'} : {display: 'block', marginRight: '1vw'}}
+            <div className={`saved ${saved ? 'show' : 'hide'}`}>Saved!</div>
+            <button className={isEditDisabled ? 'hide' : 'show'}
               onClick={() => {saveEdit()}}>Save</button>
-            <button style={isEditDisabled ? {display: 'none'} : {display: 'block', marginRight: '1vw'}}
+            <button className={isEditDisabled ? 'hide' : 'show'}
               onClick={() => {cancelEdit()}}>Cancel</button>
           </div>
         </div>

@@ -63,13 +63,13 @@ const ProfilePic = (props) => {
         id='image'
         accept='.png, .jpg, .jpeg'
         onChange={changeHandler}
-        style={{display: 'none'}} 
+        className='hide'
         ref={fileBtn}
       />
       <input
         type="button"
         value="Change..."
-        style={props.disabled ? {display: 'none'} : {dislay: 'block'}}
+        className={props.disabled ? 'hide' : 'show'}
         onClick={() => fileBtn.current.click()}
       />
     </div>
