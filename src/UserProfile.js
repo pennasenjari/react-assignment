@@ -11,6 +11,7 @@ const UserProfile = () => {
   const [isEditDisabled, setIsEditDisabled] = useState(true);
   const [profilePic, setProfilePic] = useState(null);
   const [resetPic, setResetPic] = useState(false);
+  const [saved, setSaved] = useState(false);
 
   useEffect(() => {
     fetch("https://randomuser.me/api/?results=1")
@@ -40,6 +41,7 @@ const UserProfile = () => {
     console.log('TODO: Submit user data to server: ', user)
     setIsEditDisabled(true);
     setOldUser(oldUser => user); // set the "restore point"
+    setSaved(true);
   };
 
   const cancelEdit = () => {
@@ -134,7 +136,8 @@ const UserProfile = () => {
           <div style={{flex: 1}}></div>
           <div style={{flex: 1}}>
             <button style={isEditDisabled ? {display: 'block'} : {display: 'none'}}
-              onClick={() => {setIsEditDisabled(!isEditDisabled)}}>Edit</button>
+              onClick={() => {setIsEditDisabled(!isEditDisabled); setSaved(false);}}>Edit</button>
+            <div style={saved ? {display: 'block', color: 'green'} : {display: 'none'}}>Saved!</div>
             <button style={isEditDisabled ? {display: 'none'} : {display: 'block', marginRight: '1vw'}}
               onClick={() => {saveEdit()}}>Save</button>
             <button style={isEditDisabled ? {display: 'none'} : {display: 'block', marginRight: '1vw'}}
