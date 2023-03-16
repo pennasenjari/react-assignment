@@ -40,6 +40,6 @@ $ npm start
 
 ## 4) Open application in browser
 
-Your browser should open with the right page automatically, but in case it don't, open for your browser and go to http://localhost:3000 to see the running application. Note: If you had the port 3000 already in use, the application could start in port 3001 or higher.
+Your browser should open with the right page automatically, but in case it don't, open your browser and go to http://localhost:3000 to see the running application. Note: If you had the port 3000 already in use, the application could start in port 3001 or higher.
 
 This application has been programmed in React langauge. To learn more about React see [React documentation](https://reactjs.org/).
