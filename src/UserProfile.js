@@ -9,7 +9,6 @@ const UserProfile = () => {
   const [user, setUser] = useState();
   const [oldUser, setOldUser] = useState();
   const [isEditDisabled, setIsEditDisabled] = useState(true);
-  const [profilePic, setProfilePic] = useState(null);
   const [resetPic, setResetPic] = useState(false);
   const [saved, setSaved] = useState(false);
 
@@ -19,7 +18,6 @@ const UserProfile = () => {
     .then(data => {
       setUser(data.results[0]);
       setOldUser(cloneDeep(data.results[0])); // separating original and modified values
-      setProfilePic(data.results[0].picture.medium);
     });
   },[]);
 
@@ -48,7 +46,7 @@ const UserProfile = () => {
     // restore original user data
     const tempUser = cloneDeep(oldUser);
     setUser(tempUser);
-    setResetPic(!resetPic); // needed another var to trigger useEffect in ProfilePic, because profilePic is unhanged
+    setResetPic(!resetPic); // restore old pic when user cancels editing (if changed)
     setIsEditDisabled(true);
   };
 
@@ -64,8 +62,7 @@ const UserProfile = () => {
       <div className="col full-size">
         <div className="row">
           <div className="row col1">
-            <ProfilePic username={user.name} pic={profilePic} resetPic={resetPic}
-              setCustomPic={setCustomPic} disabled={isEditDisabled} />
+            <ProfilePic user={user} disabled={isEditDisabled} setCustomPic={setCustomPic} resetPic={resetPic} />
           </div>
           <div className="row col2">
             <h1><ContentEditable

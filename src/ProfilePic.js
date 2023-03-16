@@ -4,29 +4,27 @@ import { useEffect, useState, useRef } from 'react';
 
 const ProfilePic = (props) => {
 
+  const user = props.user;
   const imageMimeType = /image\/(png|jpg|jpeg)/i;
-
   const [file, setFile] = useState(null);
-  const [fileDataURL, setFileDataURL] = useState(props.pic);
+  const [fileDataURL, setFileDataURL] = useState(null);
  
-  const changeHandler = (e) => {
-    // select picture from user's device
-    const file = e.target.files[0];
-    if (!file.type.match(imageMimeType)) {
-      alert("Image mime type is not valid");
-      return;
-    }
-    setFile(file);
-  }
-
   useEffect(() => {
     // set picture from user data
-    setFileDataURL(props.pic)
-  }, [props.pic]);
+    if (user && user.picture && user.picture.custom) {
+      setFileDataURL(user.picture.custom);
+    } else if (user && user.picture && user.picture.medium) {
+      setFileDataURL(user.picture.medium);
+    }
+  }, [user]);
 
   useEffect(() => {
-    // reset original picture
-    setFileDataURL(props.pic)
+    // reset picture
+    if (user && user.picture && user.picture.custom) {
+      setFileDataURL(user.picture.custom);
+    } else if (user && user.picture && user.picture.medium) {
+      setFileDataURL(user.picture.medium);
+    }
   }, [props.resetPic]);
 
   useEffect(() => {
@@ -51,12 +49,22 @@ const ProfilePic = (props) => {
     }
   }, [file]);
 
+  const changeHandler = (e) => {
+    // select picture from user's device
+    const file = e.target.files[0];
+    if (!file.type.match(imageMimeType)) {
+      alert("Image mime type is not valid");
+      return;
+    }
+    setFile(file);
+  }
+ 
   const fileBtn = useRef(null); // helper to hide upload control
 
   return (
     <div className="col">
       {fileDataURL ? 
-        <img src={fileDataURL} alt={props.username.first + ' ' +  props.username.last} className="profile-pic" />
+        <img src={fileDataURL} alt={user.name.first + ' ' +  user.name.last} className="profile-pic" />
         : null }
       <input
         type="file"
