@@ -1,4 +1,10 @@
-# How to run this project
+# About this application
+
+This is a React language programming example made by Jari Pennanen. It fetches a random user profile from 
+https://randomuser.me/api/ and displays a simple profile page. User data can be edited inline and profile picture can be changed.
+Application does not have any back end. Changes are saved only in user's browser and they will disappear on page refresh.
+
+# How to run this application
 
 ## 1) You need to have github account and git, node and npm installed in your computer.
 
